@@ -9,6 +9,7 @@ services:
         container_name: sample_golang
         depends_on:
             - sample_db
+            - sample_react
         volumes:
             - ./go:/go/src
 
@@ -21,6 +22,9 @@ services:
         environment: 
             MYSQL_ROOT_PASSWORD: root
             MYSQL_DATABASE: sample
+        depends_on: 
+            - sample_golang
+            - sample_react
 
     sample_react:
         build: ./react
@@ -30,3 +34,6 @@ services:
         container_name: sample_react
         volumes: 
             - ./react:/react
+        depends_on: 
+            - sample_react
+            - sample_golang
